@@ -1,6 +1,6 @@
 html {
   height: 100%;
-
+  padding: 0 10px;
   background-color: #ffeaa7;
   color: #2d3436;
   font-family: Verdana, Geneva, sans-serif;
@@ -35,8 +35,8 @@ a {
 
 .dropzone {
   padding: 20px;
-  width: 400px;
-  height: 400px;
+  min-width: 50%;
+  min-height: 50%;
   border-width: 2px;
   border-color: #2d3436;
   border-style: dashed;

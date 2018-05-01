@@ -89,7 +89,19 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <h3>Generate icons for iOS & Android apps in one step.</h3>
+                <h3>
+                    APP ICON MAKER<br />
+                    <span style={{ fontSize: 16, fontWeight: "normal" }}>
+                        Generate icons for iOS & Android apps in one step.<br />
+                        The source code is available on{" "}
+                        <a
+                            href="https://github.com/longsangstan/app-icon-maker"
+                            target="_blank"
+                        >
+                            Github
+                        </a>.
+                    </span>
+                </h3>
                 <Dropzone
                     className="dropzone"
                     onDrop={this.onDrop}
