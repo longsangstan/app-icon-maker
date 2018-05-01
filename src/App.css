@@ -48,3 +48,18 @@ a {
   -ms-flex-align: center;
   align-items: center;
 }
+
+.dropzone-active {
+  border-color: #00b894;
+  color: #00b894;
+}
+
+.dropzone-reject {
+  border-color: #e17055;
+  color: #e17055;
+}
+
+.dropzone-disabled {
+  border-color: #b2bec3;
+  color: #b2bec3;
+}

@@ -16,7 +16,7 @@ class App extends Component {
         generating: false
     };
 
-    onDrop = async acceptedFiles => {
+    onDropAccepted = async acceptedFiles => {
         this.setState({
             generating: true
         });
@@ -104,7 +104,11 @@ class App extends Component {
                 </h3>
                 <Dropzone
                     className="dropzone"
-                    onDrop={this.onDrop}
+                    activeClassName="dropzone-active"
+                    rejectClassName="dropzone-reject"
+                    disabledClassName="dropzone-disabled"
+                    disabled={this.state.generating}
+                    onDropAccepted={this.onDropAccepted}
                     multiple={false}
                     accept="image/jpeg, image/png"
                 >
