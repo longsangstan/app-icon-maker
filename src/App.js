@@ -26,11 +26,11 @@ class App extends Component {
         );
 
         // canvas - from
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+        const canvasFrom = document.createElement("canvas");
+        const ctx = canvasFrom.getContext("2d");
         const img = await loadImage(loadedFile);
-        canvas.width = img.width;
-        canvas.height = img.height;
+        canvasFrom.width = img.width;
+        canvasFrom.height = img.height;
         ctx.drawImage(img, 0, 0);
 
         const zip = new JSZip();
@@ -47,7 +47,7 @@ class App extends Component {
             canvasTo.height = width;
 
             let canvasBlob = await pica
-                .resize(canvas, canvasTo, {
+                .resize(canvasFrom, canvasTo, {
                     alpha: true
                 })
                 .then(result => pica.toBlob(result, "image/png"));
@@ -69,7 +69,7 @@ class App extends Component {
             canvasTo.height = width;
 
             let canvasBlob = await pica
-                .resize(canvas, canvasTo, {
+                .resize(canvasFrom, canvasTo, {
                     alpha: true
                 })
                 .then(result => pica.toBlob(result, "image/png"));
