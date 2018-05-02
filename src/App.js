@@ -4,6 +4,7 @@ import { contentJson, androidIcons } from "./config";
 
 import Dropzone from "react-dropzone";
 
+import ReactGA from "react-ga";
 import loadImage from "image-promise";
 import FileSaver from "file-saver";
 import JSZip from "jszip";
@@ -24,6 +25,9 @@ async function resizeCanvas(canvasFrom, widthTo) {
 
     return canvasBlob;
 }
+
+ReactGA.initialize("UA-118263436-2");
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 class App extends Component {
     state = {
@@ -78,6 +82,11 @@ class App extends Component {
         const blob = await zip.generateAsync({ type: "blob" });
         FileSaver.saveAs(blob, "icons.zip");
 
+        ReactGA.event({
+            category: "App Icon",
+            action: "Generated"
+        });
+
         this.setState({
             generating: false
         });
@@ -122,7 +131,10 @@ class App extends Component {
                     )}
                 </Dropzone>
                 <p>
-                    <a href="https://clss.hk" target="_blank">
+                    <a
+                        href="https://clss.hk/?utm_source=appiconmaker"
+                        target="_blank"
+                    >
                         ⚡Powered by CLSS.hk
                     </a>
                 </p>
