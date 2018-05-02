@@ -11,6 +11,20 @@ import JSZip from "jszip";
 const pica = require("pica")();
 const PromiseFileReader = require("promise-file-reader");
 
+async function resizeCanvas(canvasFrom, widthTo) {
+    const canvasTo = document.createElement("canvas");
+    canvasTo.width = widthTo;
+    canvasTo.height = widthTo;
+
+    const canvasBlob = await pica
+        .resize(canvasFrom, canvasTo, {
+            alpha: true
+        })
+        .then(result => pica.toBlob(result, "image/png"));
+
+    return canvasBlob;
+}
+
 class App extends Component {
     state = {
         generating: false
@@ -37,20 +51,11 @@ class App extends Component {
 
         // ios
         for (let item of contentJson["images"]) {
-            let size = item["size"].replace(/(^\d+)(.+$)/i, "$1");
-            let scale = item["scale"].replace(/(^\d+)(.+$)/i, "$1");
+            const size = item["size"].replace(/(^\d+)(.+$)/i, "$1");
+            const scale = item["scale"].replace(/(^\d+)(.+$)/i, "$1");
+            const widthTo = size * scale;
 
-            let width = size * scale;
-
-            let canvasTo = document.createElement("canvas");
-            canvasTo.width = width;
-            canvasTo.height = width;
-
-            let canvasBlob = await pica
-                .resize(canvasFrom, canvasTo, {
-                    alpha: true
-                })
-                .then(result => pica.toBlob(result, "image/png"));
+            const canvasBlob = await resizeCanvas(canvasFrom, widthTo);
 
             zip.file(`ios/AppIcon.appiconset/${item["filename"]}`, canvasBlob);
         }
@@ -62,17 +67,9 @@ class App extends Component {
 
         // android
         for (let item of androidIcons) {
-            let width = item["size"];
+            const widthTo = item["size"];
 
-            let canvasTo = document.createElement("canvas");
-            canvasTo.width = width;
-            canvasTo.height = width;
-
-            let canvasBlob = await pica
-                .resize(canvasFrom, canvasTo, {
-                    alpha: true
-                })
-                .then(result => pica.toBlob(result, "image/png"));
+            const canvasBlob = await resizeCanvas(canvasFrom, widthTo);
 
             zip.file(item["filename"], canvasBlob);
         }
