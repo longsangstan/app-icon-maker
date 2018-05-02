@@ -8,7 +8,7 @@ import loadImage from "image-promise";
 import FileSaver from "file-saver";
 import JSZip from "jszip";
 
-const pica = require("pica")();
+const pica = require("pica/dist/pica.min")();
 const PromiseFileReader = require("promise-file-reader");
 
 async function resizeCanvas(canvasFrom, widthTo) {
